@@ -38,6 +38,7 @@
             android:text="@string/recommended"
             android:textColor="@color/white"
             android:textSize="12sp"
+            android:translationZ="4dp"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 

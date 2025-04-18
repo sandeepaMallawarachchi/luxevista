@@ -63,13 +63,7 @@ public class AttractionDetailActivity extends AppCompatActivity {
                 // This is a placeholder - in a real app, you would use actual coordinates
                 Uri gmmIntentUri = Uri.parse("geo:0,0?q=" + Uri.encode(attraction.getName()));
                 Intent mapIntent = new Intent(Intent.ACTION_VIEW, gmmIntentUri);
-                mapIntent.setPackage("com.google.android.apps.maps");
-                
-                if (mapIntent.resolveActivity(getPackageManager()) != null) {
-                    startActivity(mapIntent);
-                } else {
-                    Toast.makeText(AttractionDetailActivity.this, "Google Maps app is not installed", Toast.LENGTH_SHORT).show();
-                }
+                startActivity(Intent.createChooser(mapIntent, "Open with"));
             }
         });
     }

@@ -43,13 +43,11 @@ public class AttractionAdapter extends RecyclerView.Adapter<AttractionAdapter.At
         holder.attractionNameTextView.setText(attraction.getName());
         holder.attractionCategoryTextView.setText(attraction.getCategory());
         holder.attractionDistanceTextView.setText(attraction.getDistance() + " km away");
-        
+
         if (attraction.isRecommended()) {
             holder.recommendedTextView.setVisibility(View.VISIBLE);
-        } else {
-            holder.recommendedTextView.setVisibility(View.GONE);
         }
-        
+
         // Load image using Glide
         if (attraction.getImageUrl() != null && !attraction.getImageUrl().isEmpty()) {
             Glide.with(context)
