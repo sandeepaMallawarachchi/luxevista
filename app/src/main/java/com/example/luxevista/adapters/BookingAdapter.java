@@ -45,10 +45,8 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
         
         holder.bookingItemNameTextView.setText(booking.getItemName());
         holder.bookingItemTypeTextView.setText(booking.getItemType());
-        holder.bookingDateTextView.setText(dateFormat.format(booking.getStartDate()) + 
-                                          " - " + 
-                                          dateFormat.format(booking.getEndDate()));
-        holder.bookingPriceTextView.setText("LKR" + booking.getTotalPrice());
+        holder.bookingDateTextView.setText(dateFormat.format(booking.getStartDate()) +  " - " + dateFormat.format(booking.getEndDate()));
+        holder.bookingPriceTextView.setText("LKR " + booking.getTotalPrice());
         holder.bookingStatusTextView.setText(booking.getStatus());
         
         // Set status color
@@ -74,7 +72,7 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
                 FirebaseFirestore.getInstance()
                         .collection("bookings")
                         .document(booking.getId())
-                        .update("status", "cancelled");
+                        .delete();
             }
         });
     }

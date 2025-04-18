@@ -99,13 +99,13 @@ public class ServiceDetailActivity extends AppCompatActivity {
         });
         
         // Set initial total price
-        totalPriceTextView.setText("$" + service.getPrice());
+        totalPriceTextView.setText("LKR " + service.getPrice());
     }
 
     private void loadServiceDetails() {
         serviceNameTextView.setText(service.getName());
         serviceCategoryTextView.setText(service.getCategory());
-        servicePriceTextView.setText("$" + service.getPrice());
+        servicePriceTextView.setText("LKR " + service.getPrice());
         serviceDescriptionTextView.setText(service.getDescription());
 
         // Load image using Glide

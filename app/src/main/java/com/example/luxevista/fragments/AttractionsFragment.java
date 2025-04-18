@@ -43,9 +43,6 @@ public class AttractionsFragment extends Fragment {
         attractionList = new ArrayList<>();
         attractionAdapter = new AttractionAdapter(getContext(), attractionList);
         attractionsRecyclerView.setAdapter(attractionAdapter);
-
-        // Initialize Firebase
-        attractionsRef = FirebaseDatabase.getInstance().getReference().child("Attractions");
         
         // Load attractions from Firebase
         loadAttractions();
@@ -54,21 +51,19 @@ public class AttractionsFragment extends Fragment {
     }
 
     private void loadAttractions() {
-        attractionsRef.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                attractionList.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-                    Attraction attraction = snapshot.getValue(Attraction.class);
-                    attractionList.add(attraction);
-                }
-                attractionAdapter.notifyDataSetChanged();
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-                // Handle error
-            }
-        });
+        com.google.firebase.firestore.FirebaseFirestore.getInstance()
+                .collection("attractions")
+                .get()
+                .addOnSuccessListener(queryDocumentSnapshots -> {
+                    attractionList.clear();
+                    for (com.google.firebase.firestore.DocumentSnapshot doc : queryDocumentSnapshots) {
+                        Attraction attraction = doc.toObject(Attraction.class);
+                        attractionList.add(attraction);
+                    }
+                    attractionAdapter.notifyDataSetChanged();
+                })
+                .addOnFailureListener(e -> {
+                    // Handle Firestore read failure
+                });
     }
 }

@@ -45,7 +45,7 @@ public class RoomAdapter extends RecyclerView.Adapter<RoomAdapter.RoomViewHolder
         holder.roomTypeTextView.setText(room.getType());
 
         // Show price aligned to right
-        holder.roomPriceTextView.setText("$" + room.getPricePerNight() + " / night");
+        holder.roomPriceTextView.setText("LKR " + room.getPricePerNight() + " / night");
         holder.roomPriceTextView.setTextAlignment(View.TEXT_ALIGNMENT_VIEW_END);
 
         // Show availability and occupancy

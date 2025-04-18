@@ -7,11 +7,13 @@
     android:layout_height="wrap_content"
     android:layout_margin="8dp"
     app:cardCornerRadius="12dp"
+    android:backgroundTint="@color/white"
     app:cardElevation="4dp">
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/white">
 
         <ImageView
             android:id="@+id/attractionImageView"
@@ -81,19 +83,6 @@
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/attractionCategoryTextView" />
-
-        <Button
-            android:id="@+id/viewDetailsButton"
-            android:layout_width="wrap_content"
-            android:layout_height="36dp"
-            android:layout_marginEnd="16dp"
-            android:background="@drawable/button_outline_background"
-            android:text="@string/view_details"
-            android:textColor="@color/colorPrimary"
-            android:textSize="12sp"
-            app:layout_constraintBottom_toBottomOf="@+id/attractionDistanceTextView"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/attractionDistanceTextView" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

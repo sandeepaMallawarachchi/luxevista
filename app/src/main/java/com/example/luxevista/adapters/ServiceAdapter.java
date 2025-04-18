@@ -42,7 +42,7 @@ public class ServiceAdapter extends RecyclerView.Adapter<ServiceAdapter.ServiceV
         
         holder.serviceNameTextView.setText(service.getName());
         holder.serviceCategoryTextView.setText(service.getCategory());
-        holder.servicePriceTextView.setText("$" + service.getPrice());
+        holder.servicePriceTextView.setText("LKR " + service.getPrice());
         holder.serviceDurationTextView.setText(service.getDuration() + " min");
         
         // Load image using Glide

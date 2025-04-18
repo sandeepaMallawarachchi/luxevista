@@ -134,7 +134,7 @@ public class RoomDetailActivity extends AppCompatActivity {
     private void loadRoomDetails() {
         roomNameTextView.setText(room.getName());
         roomTypeTextView.setText(room.getType());
-        roomPriceTextView.setText("$" + room.getPricePerNight() + " / night");
+        roomPriceTextView.setText("LKR " + room.getPricePerNight() + " / night");
         roomDescriptionTextView.setText(room.getDescription());
 
         // Load image using Glide
@@ -196,14 +196,14 @@ public class RoomDetailActivity extends AppCompatActivity {
 
             if (diffInDays > 0) {
                 double totalPrice = diffInDays * room.getPricePerNight();
-                totalPriceTextView.setText("LKR" + totalPrice);
+                totalPriceTextView.setText("LKR " + totalPrice);
                 bookNowButton.setEnabled(true);
             } else {
-                totalPriceTextView.setText("LKR0");
+                totalPriceTextView.setText("LKR 0");
                 bookNowButton.setEnabled(false);
             }
         } else {
-            totalPriceTextView.setText("LKR0");
+            totalPriceTextView.setText("LKR 0");
             bookNowButton.setEnabled(false);
         }
     }
