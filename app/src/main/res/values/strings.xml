@@ -58,5 +58,8 @@
     <string name="max_occupnacy">No Of Guets\n</string>
     <string name="book_from_book_to">book from - book to</string>
     <string name="lkrprice">LKRprice</string>
+    <string name="get_started">Get Started</string>
+    <string name="price_up_to_1000">Price</string>
+    <string name="search_rooms">Search rooms...</string>
 
 </resources>

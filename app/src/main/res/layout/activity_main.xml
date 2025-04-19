@@ -52,7 +52,7 @@
         android:layout_marginTop="32dp"
         android:layout_marginEnd="32dp"
         android:background="@drawable/button_background"
-        android:text="@string/login"
+        android:text="@string/get_started"
         android:enabled="true"
         android:textColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
