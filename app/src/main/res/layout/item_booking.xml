@@ -85,7 +85,7 @@
             android:layout_width="108dp"
             android:layout_height="48dp"
             android:layout_marginEnd="16dp"
-            android:background="@drawable/button_cancel_background"
+            android:backgroundTint="@color/colorCancelled"
             android:text="@string/cancel"
             android:textColor="@color/white"
             android:textSize="12sp"
