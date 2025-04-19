@@ -69,10 +69,16 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
         holder.cancelBookingButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FirebaseFirestore.getInstance()
-                        .collection("bookings")
-                        .document(booking.getId())
-                        .delete();
+                FirebaseFirestore db = FirebaseFirestore.getInstance();
+                db.collection("rooms")
+                        .document(booking.getItemId())
+                        .update("isAvailable", true)
+                        .addOnSuccessListener(aVoid -> {
+                            db.collection("bookings")
+                                    .document(booking.getId())
+                                    .delete();
+                        });
+
             }
         });
     }
