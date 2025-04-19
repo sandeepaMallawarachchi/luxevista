@@ -2,13 +2,9 @@ package com.example.luxevista.fragments;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
-import android.provider.OpenableColumns;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.*;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -20,11 +16,9 @@ import com.example.luxevista.FirebaseManager;
 import com.example.luxevista.LoginActivity;
 import com.example.luxevista.R;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.*;
-
+import com.google.firebase.firestore.*;
 import java.io.*;
-import java.util.Map;
-import java.util.UUID;
+import java.util.*;
 
 public class ProfileFragment extends Fragment {
 
@@ -32,9 +26,10 @@ public class ProfileFragment extends Fragment {
     private ImageView profileImageView;
     private TextView usernameTextView, emailTextView, totalTextView, confirmedTextView, cancelledTextView;
     private Button logoutButton;
-    private DatabaseReference userRef, bookingsRef;
+
     private FirebaseUser currentUser;
-    private String imageUrl;
+    private FirebaseFirestore firestore;
+    private DocumentReference userDocRef;
 
     @Nullable
     @Override
@@ -50,10 +45,8 @@ public class ProfileFragment extends Fragment {
         logoutButton = view.findViewById(R.id.logoutButton);
 
         currentUser = FirebaseManager.getInstance().getCurrentUser();
-        String uid = currentUser.getUid();
-        userRef = FirebaseManager.getInstance().getUsersReference().child(uid);
-        userRef = FirebaseManager.getInstance().getUsersReference().child(uid);
-        bookingsRef = FirebaseManager.getInstance().getBookingsReference();
+        firestore = FirebaseFirestore.getInstance();
+        userDocRef = firestore.collection("users").document(currentUser.getUid());
 
         loadUserData();
         loadBookingSummary();
@@ -61,7 +54,7 @@ public class ProfileFragment extends Fragment {
         logoutButton.setOnClickListener(v -> {
             FirebaseManager.getInstance().signOut();
             startActivity(new Intent(getActivity(), LoginActivity.class));
-            getActivity().finish();
+            requireActivity().finish();
         });
 
         profileImageView.setOnClickListener(v -> openImagePicker());
@@ -77,45 +70,40 @@ public class ProfileFragment extends Fragment {
 
     private void loadUserData() {
         emailTextView.setText(currentUser.getEmail());
-        userRef.addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                String username = snapshot.child("username").getValue(String.class);
-                imageUrl = snapshot.child("imageUrl").getValue(String.class);
+
+        userDocRef.get().addOnSuccessListener(documentSnapshot -> {
+            if (documentSnapshot.exists()) {
+                String username = documentSnapshot.getString("username");
+                String imageUrl = documentSnapshot.getString("imageUrl");
+
                 usernameTextView.setText(username != null ? username : "Username");
 
                 if (imageUrl != null && !imageUrl.isEmpty()) {
                     Glide.with(requireContext()).load(imageUrl).into(profileImageView);
                 }
             }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
         });
     }
 
     private void loadBookingSummary() {
-        String userId = currentUser.getUid();
-        bookingsRef.orderByChild("userId").equalTo(userId).addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                int total = 0, confirmed = 0, cancelled = 0;
+        firestore.collection("bookings")
+                .whereEqualTo("userId", currentUser.getUid())
+                .addSnapshotListener((snapshots, error) -> {
+                    if (error != null || snapshots == null) return;
 
-                for (DataSnapshot bookingSnap : snapshot.getChildren()) {
-                    total++;
-                    String status = bookingSnap.child("status").getValue(String.class);
-                    if ("confirmed".equalsIgnoreCase(status)) confirmed++;
-                    if ("cancelled".equalsIgnoreCase(status)) cancelled++;
-                }
+                    int total = 0, confirmed = 0, cancelled = 0;
 
-                totalTextView.setText("Total Bookings: " + total);
-                confirmedTextView.setText("Confirmed: " + confirmed);
-                cancelledTextView.setText("Cancelled: " + cancelled);
-            }
+                    for (DocumentSnapshot doc : snapshots.getDocuments()) {
+                        total++;
+                        String status = doc.getString("status");
+                        if ("confirmed".equalsIgnoreCase(status)) confirmed++;
+                        if ("cancelled".equalsIgnoreCase(status)) cancelled++;
+                    }
 
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {}
-        });
+                    totalTextView.setText("Total Bookings: " + total);
+                    confirmedTextView.setText("Confirmed: " + confirmed);
+                    cancelledTextView.setText("Cancelled: " + cancelled);
+                });
     }
 
     @Override
@@ -135,10 +123,11 @@ public class ProfileFragment extends Fragment {
                         "api_key", "638346467257877",
                         "api_secret", "eZcdojjN6nxFEvHZsJgKXiJhtvY"
                 ));
+
                 Map uploadResult = cloudinary.uploader().upload(tempFile, ObjectUtils.emptyMap());
                 String uploadedUrl = (String) uploadResult.get("secure_url");
 
-                userRef.child("imageUrl").setValue(uploadedUrl);
+                userDocRef.update("imageUrl", uploadedUrl);
                 requireActivity().runOnUiThread(() -> {
                     Glide.with(requireContext()).load(uploadedUrl).into(profileImageView);
                     Toast.makeText(requireContext(), "Upload successful", Toast.LENGTH_SHORT).show();

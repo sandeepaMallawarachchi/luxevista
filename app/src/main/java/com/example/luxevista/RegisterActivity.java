@@ -20,6 +20,7 @@ import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.firestore.FirebaseFirestore;
 
 import java.util.HashMap;
 
@@ -134,28 +135,30 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onComplete(@NonNull Task<AuthResult> task) {
                         // progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
-                            // Save user data to database
+                            // Save user data to Firestore
                             String userId = mAuth.getCurrentUser().getUid();
-                            DatabaseReference userIdRef = userRef.child(userId);
-
                             HashMap<String, Object> userMap = new HashMap<>();
                             userMap.put("username", username);
                             userMap.put("email", email);
                             userMap.put("userId", userId);
 
-                            userIdRef.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
-                                @Override
-                                public void onComplete(@NonNull Task<Void> task) {
-                                    if (task.isSuccessful()) {
-                                        Toast.makeText(RegisterActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
-                                        startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
-                                        finish();
-                                    } else {
-                                        Toast.makeText(RegisterActivity.this, "Error: " + task.getException().getMessage(), 
-                                                Toast.LENGTH_SHORT).show();
-                                    }
-                                }
-                            });
+                            FirebaseFirestore.getInstance()
+                                    .collection("users")
+                                    .document(userId)
+                                    .set(userMap)
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Toast.makeText(RegisterActivity.this, "Registration successful", Toast.LENGTH_SHORT).show();
+                                                startActivity(new Intent(RegisterActivity.this, HomeActivity.class));
+                                                finish();
+                                            } else {
+                                                Toast.makeText(RegisterActivity.this, "Error: " + task.getException().getMessage(),
+                                                        Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                    });
                         } else {
                             Toast.makeText(RegisterActivity.this, "Registration failed: " + task.getException().getMessage(), 
                                     Toast.LENGTH_SHORT).show();
