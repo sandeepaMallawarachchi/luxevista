@@ -39,13 +39,15 @@
             android:id="@+id/searchEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:minHeight="48dp"
             android:layout_marginBottom="12dp"
+            android:background="@drawable/bg_input_border"
+            android:drawableStart="@drawable/ic_search"
             android:hint="@string/search_rooms"
             android:inputType="text"
-            android:drawableStart="@drawable/ic_search"
-            android:background="@drawable/bg_input_border"
-            android:padding="10dp" />
+            android:minHeight="48dp"
+            android:padding="10dp"
+            android:textColor="@color/colorPrimary"
+            android:textColorHint="@color/colorAccent" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -54,6 +54,7 @@
         app:boxCornerRadiusBottomStart="32dp"
         app:boxCornerRadiusTopEnd="32dp"
         app:boxCornerRadiusTopStart="32dp"
+        app:helperTextTextColor="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/loginSubtitleTextView"
@@ -64,9 +65,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/email"
+            android:inputType="textEmailAddress"
             android:textColor="@color/colorPrimary"
-            android:textColorHint="@color/colorAccent"
-            android:inputType="textEmailAddress" />
+            android:textColorHint="@color/colorAccent" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -81,6 +82,7 @@
         app:boxCornerRadiusBottomStart="32dp"
         app:boxCornerRadiusTopEnd="32dp"
         app:boxCornerRadiusTopStart="32dp"
+        app:helperTextTextColor="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/emailInputLayout"
@@ -92,9 +94,9 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/password"
+            android:inputType="textPassword"
             android:textColor="@color/colorPrimary"
-            android:textColorHint="@color/colorAccent"
-            android:inputType="textPassword" />
+            android:textColorHint="@color/colorAccent" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <ImageView
