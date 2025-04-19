@@ -57,7 +57,7 @@ Welcome to **LuxeVista** — a modern Android application tailored for resort gu
 
 1. Clone the repository:
    ```bash
-   git clone https://github.com/your-username/luxevista.git
+   [git clone https://github.com/your-username/luxevista.git](https://github.com/sandeepaMallawarachchi/luxevista)
 Open with Android Studio and sync Gradle.
 
 2. Add your Firebase config:
@@ -79,6 +79,8 @@ Make sure to include this permission in your AndroidManifest.xml:
 
 ```bash
 <uses-permission android:name="android.permission.INTERNET"/>
+
+```
 
 ##🤝 Contribution
 Feel free to fork the repo and submit pull requests. You can improve the UI/UX, optimize performance, or integrate new features like payment gateways!
