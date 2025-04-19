@@ -70,15 +70,26 @@ public class BookingAdapter extends RecyclerView.Adapter<BookingAdapter.BookingV
             @Override
             public void onClick(View v) {
                 FirebaseFirestore db = FirebaseFirestore.getInstance();
-                db.collection("rooms")
-                        .document(booking.getItemId())
-                        .update("isAvailable", true)
-                        .addOnSuccessListener(aVoid -> {
-                            db.collection("bookings")
-                                    .document(booking.getId())
-                                    .delete();
-                        });
 
+                if (booking.getItemType().equals("service")) {
+                    db.collection("services")
+                            .document(booking.getItemId())
+                            .update("isAvailable", true)
+                            .addOnSuccessListener(aVoid -> {
+                                db.collection("bookings")
+                                        .document(booking.getId())
+                                        .delete();
+                            });
+                } else if (booking.getItemType().equals("room")) {
+                    db.collection("rooms")
+                            .document(booking.getItemId())
+                            .update("isAvailable", true)
+                            .addOnSuccessListener(aVoid -> {
+                                db.collection("bookings")
+                                        .document(booking.getId())
+                                        .delete();
+                            });
+                }
             }
         });
     }

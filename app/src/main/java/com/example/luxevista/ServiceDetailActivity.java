@@ -207,16 +207,27 @@ public class ServiceDetailActivity extends AppCompatActivity {
         );
 
         // Save booking to Firebase
-        FirebaseFirestore.getInstance()
-                .collection("bookings")
+        FirebaseFirestore db = FirebaseFirestore.getInstance();
+
+        db.collection("bookings")
                 .document(bookingId)
                 .set(booking)
                 .addOnSuccessListener(unused -> {
-                    Toast.makeText(ServiceDetailActivity.this, "Booking successful!", Toast.LENGTH_SHORT).show();
-                    finish();
+                    // Mark the service as unavailable after successful booking
+                    db.collection("services")
+                            .document(service.getId())
+                            .update("isAvailable", false)
+                            .addOnSuccessListener(unused2 -> {
+                                Toast.makeText(ServiceDetailActivity.this, "Booking successful!", Toast.LENGTH_SHORT).show();
+                                finish();
+                            })
+                            .addOnFailureListener(e -> {
+                                Toast.makeText(ServiceDetailActivity.this, "Service update failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                            });
                 })
                 .addOnFailureListener(e -> {
                     Toast.makeText(ServiceDetailActivity.this, "Booking failed: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                 });
+
     }
 }

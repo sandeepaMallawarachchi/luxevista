@@ -59,13 +59,15 @@ public class ServicesFragment extends Fragment {
     private void loadServices() {
         FirebaseFirestore.getInstance()
                 .collection("services")
-                .whereEqualTo("isAvailable", true)
                 .get()
                 .addOnSuccessListener(query -> {
                     serviceList.clear();
                     for (DocumentSnapshot snapshot : query.getDocuments()) {
                         Service service = snapshot.toObject(Service.class);
-                        serviceList.add(service);
+                        if (service != null) {
+                            service.setId(snapshot.getId());
+                            serviceList.add(service);
+                        }
                     }
                     serviceAdapter.notifyDataSetChanged();
                 });
