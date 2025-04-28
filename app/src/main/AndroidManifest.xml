@@ -20,6 +20,15 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".RegisterActivity" />
         <activity android:name=".LoginActivity" />
+        <activity android:name=".AdminActivity" />
+        <activity android:name=".AdminRoomActivity" />
+        <activity android:name=".AdminServiceActivity" />
+        <activity android:name=".AdminAttractionActivity" />
+        <activity android:name=".AdminBookingActivity" />
+        <activity android:name=".AddRoomActivity" />
+        <activity android:name=".AddServiceActivity" />
+        <activity android:name=".AddAttractionActivity" />
+        
         <activity android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

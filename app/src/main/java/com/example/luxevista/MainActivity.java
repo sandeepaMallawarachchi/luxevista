@@ -17,7 +17,12 @@ public class MainActivity extends AppCompatActivity {
 
         // Check if user is already logged in
         if (FirebaseManager.getInstance().isUserLoggedIn()) {
-            startActivity(new Intent(MainActivity.this, HomeActivity.class));
+            String email = FirebaseManager.getInstance().getCurrentUser().getEmail();
+            if (email != null && email.equalsIgnoreCase("admin@gmail.com")) {
+                startActivity(new Intent(MainActivity.this, AdminActivity.class));
+            } else {
+                startActivity(new Intent(MainActivity.this, HomeActivity.class));
+            }
             finish();
         }
 

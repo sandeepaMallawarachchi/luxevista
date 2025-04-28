@@ -61,5 +61,7 @@
     <string name="get_started">Get Started</string>
     <string name="price_up_to_1000">Price</string>
     <string name="search_rooms">Search rooms...</string>
+    <string name="todo">TODO</string>
+    <string name="service_management_coming_soon">Service management coming soon...</string>
 
 </resources>

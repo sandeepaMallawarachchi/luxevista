@@ -109,7 +109,11 @@ public class LoginActivity extends AppCompatActivity {
                         // progressBar.setVisibility(View.GONE);
                         if (task.isSuccessful()) {
                             Toast.makeText(LoginActivity.this, "Login successful", Toast.LENGTH_SHORT).show();
-                            startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                            if (email.equalsIgnoreCase("admin@gmail.com")) {
+                                startActivity(new Intent(LoginActivity.this, AdminActivity.class));
+                            } else {
+                                startActivity(new Intent(LoginActivity.this, HomeActivity.class));
+                            }
                             finish();
                         } else {
                             Toast.makeText(LoginActivity.this, "Authentication failed: " + task.getException().getMessage(), 
