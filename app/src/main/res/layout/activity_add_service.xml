@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <!-- Service Image -->
+        <ImageView
+            android:id="@+id/serviceImageView"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/placeholder_image"
+            android:background="@drawable/placeholder_image"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tap image to change"
+            android:textSize="12sp"
+            android:textColor="@android:color/darker_gray"
+            android:layout_marginTop="8dp"
+            android:layout_gravity="center"/>
+
+        <!-- Name -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Service Name"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/nameEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter service name"
+            android:inputType="text"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"/>
+
+        <!-- Category -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Category"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/categoryEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter category"
+            android:inputType="text"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"/>
+
+        <!-- Price -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Price (LKR)"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/priceEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter price"
+            android:inputType="numberDecimal"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"/>
+
+        <!-- Duration -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Duration (minutes)"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/durationEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter duration in minutes"
+            android:inputType="number"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"/>
+
+        <!-- Description -->
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Description"
+            android:textSize="14sp"
+            android:textColor="@color/black"
+            android:layout_marginTop="16dp"/>
+
+        <EditText
+            android:id="@+id/descriptionEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter description"
+            android:inputType="textMultiLine"
+            android:minLines="3"
+            android:background="@drawable/edit_text_background"
+            android:padding="12dp"/>
+
+        <!-- Available Checkbox -->
+        <CheckBox
+            android:id="@+id/isAvailableCheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Available"
+            android:textColor="@color/black"
+            android:layout_marginTop="16dp"/>
+
+        <!-- Save Button -->
+        <Button
+            android:id="@+id/saveButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Save Service"
+            android:textColor="@color/white"
+            android:background="@drawable/button_background"
+            android:layout_marginTop="24dp"
+            android:padding="12dp"/>
+    </LinearLayout>
+</ScrollView> 
